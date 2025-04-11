@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 from matplotlib import pyplot as plt
 
-from enums.notes import NotesNames, ChordTypes, get_tone, get_piano_notes, Note
+from enums.notes import NoteNames, ChordTypes, get_tone, get_piano_notes, Note
 from enums.common import Octaves
 
 

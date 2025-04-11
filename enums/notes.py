@@ -59,7 +59,7 @@ def get_piano_note_harmonics(note: Note, duration_in_seconds: float, sample_rate
     return t, signal
 
 
-class NotesNames(_Radioable):
+class NoteNames(_Radioable):
     C = "C"
     C_SHARP = "C#"
     D = "D"
@@ -73,9 +73,11 @@ class NotesNames(_Radioable):
     A_SHARP = "A#"
     B = "B"
 
+    def __str__(self):
+        return self.value
     @property
     def idx(self) -> int:
-        return list(NotesNames).index(self)
+        return list(NoteNames).index(self)
 
     @property
     def hue(self):
@@ -84,7 +86,7 @@ class NotesNames(_Radioable):
 
 @dataclass
 class Note:
-    name: NotesNames = NotesNames.C
+    name: NoteNames = NoteNames.C
     octave: int = 4
 
     def __hash__(self):
@@ -149,22 +151,22 @@ class Note:
 
 @cache
 def get_piano_notes() -> list[Note]:
-    p1 = [Note(name=n, octave=0) for n in [NotesNames.A, NotesNames.A_SHARP, NotesNames.B]]
-    p2 = [Note(name=n, octave=o) for o in range(1, 8) for n in NotesNames]
-    p3 = [Note(name=NotesNames.C, octave=8)]
+    p1 = [Note(name=n, octave=0) for n in [NoteNames.A, NoteNames.A_SHARP, NoteNames.B]]
+    p2 = [Note(name=n, octave=o) for o in range(1, 8) for n in NoteNames]
+    p3 = [Note(name=NoteNames.C, octave=8)]
     return p1 + p2 + p3
 
 
 def get_piano_note_color_patches():
     note_colors = [
         ["~~"] * 9
-        for note in NotesNames
+        for note in NoteNames
     ]
     for piano_note in get_piano_notes():
         note_colors[piano_note.name.idx][piano_note.octave] = piano_note.get_rgb_patch()
 
     for i in range(len(note_colors)):
-        note_colors[i] = [list(NotesNames)[i].value] + note_colors[i]
+        note_colors[i] = [list(NoteNames)[i].value] + note_colors[i]
 
     note_colors = [[""] + [o for o in range(9)]] + note_colors
 
@@ -175,7 +177,7 @@ def get_piano_note_color_patches():
 def get_piano_note_chord_color_patches():
     note_chord_colors = [
         [["~~"] * 3] * 3
-        for _ in NotesNames
+        for _ in NoteNames
     ]
     for piano_note in get_piano_notes():
         if piano_note.octave not in {3, 4, 5}:
@@ -186,8 +188,8 @@ def get_piano_note_chord_color_patches():
         ]
         note_chord_colors[piano_note.name.idx][piano_note.octave - 3] = '\n'.join(chord_patches)
 
-    for i in range(len(list(NotesNames))):
-        note_chord_colors[i] = [list(NotesNames)[i].value] + note_chord_colors[i]
+    for i in range(len(list(NoteNames))):
+        note_chord_colors[i] = [list(NoteNames)[i].value] + note_chord_colors[i]
 
     note_colors = [[""] + [o for o in range(9)]] + note_chord_colors
 
@@ -199,5 +201,3 @@ def get_piano_note_chord_color_patches():
     return t
 
 
-print(get_piano_note_color_patches())
-print(get_piano_note_chord_color_patches())

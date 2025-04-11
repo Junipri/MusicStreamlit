@@ -5,7 +5,7 @@ import librosa
 import streamlit as st
 from matplotlib import pyplot as plt
 
-from enums.notes import get_piano_notes, Note, NotesNames, get_piano_note_harmonics
+from enums.notes import get_piano_notes, Note, NoteNames, get_piano_note_harmonics
 from utils.common import adsr_envelope
 
 note_to_octaves_map = defaultdict(list)
@@ -19,9 +19,9 @@ for note in piano_notes:
 
 st.header("Lightsabers")
 
-selected_note: NotesNames = st.radio(
+selected_note: NoteNames = st.radio(
     label="Notes",
-    options=list(NotesNames),
+    options=list(NoteNames),
     index=0,
     format_func=lambda note_name: note_name.value,
     horizontal=True

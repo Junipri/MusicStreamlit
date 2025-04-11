@@ -5,17 +5,17 @@ import streamlit as st
 
 class Pages(Enum):
     LIGHTSABERS = st.Page(
-        page='pages/lightsabers.py',
+        page='app_pages/lightsabers.py',
         title='Lightsabers!'
     )
     MUSIC_THEORY = st.Page(
-        page='pages/music_theory.py',
+        page='app_pages/music_theory.py',
         title='Music Theory',
         icon='🎶'
     )
 
     COLORS = st.Page(
-        page='pages/colors.py',
+        page='app_pages/colors.py',
         title='Colors'
     )
 
